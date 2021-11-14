@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nivereno/Golang/tree/main/GolangProject/handlers/GolangProject/handlers"
 	//"handlers"
-	"github.com/nivereno/Golang/tree/main/GolangProject/handlers"
 )
 
 func main() {
