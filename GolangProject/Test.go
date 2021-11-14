@@ -6,7 +6,7 @@ import (
 	"os"
 
 	//"handlers"
-	"github.com/nivereno/Go/tree/Augh/handlers"
+	"github.com/nivereno/Golang/tree/main/GolangProject/handlers"
 )
 
 func main() {
