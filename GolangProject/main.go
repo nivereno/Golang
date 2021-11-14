@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nivereno/Golang/tree/main/GolangProject/handlers/GolangProject/handlers"
+	"github.com/nivereno/Golang/GolangProject/handlers"
 	//"handlers"
 )
 
