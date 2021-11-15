@@ -3,9 +3,9 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"regexp"
 	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/nivereno/Golang/GolangProject/data"
 )
 
@@ -17,6 +17,7 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
+/*
 func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodGet {
@@ -61,8 +62,9 @@ func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 	rw.WriteHeader(http.StatusMethodNotAllowed)
 }
+*/
 
-func (p *Products) getProducts(rw http.ResponseWriter, r *http.Request) {
+func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle GET Products")
 
 	lp := data.GetProducts()
@@ -72,8 +74,8 @@ func (p *Products) getProducts(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (p *Products) addProducts(rw http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle POST Products")
+func (p *Products) AddProducts(rw http.ResponseWriter, r *http.Request) {
+	p.l.Println("Handle POST Product")
 
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
@@ -84,12 +86,18 @@ func (p *Products) addProducts(rw http.ResponseWriter, r *http.Request) {
 	data.AddProduct(prod)
 }
 
-func (p Products) updateProducts(id int, rw http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle POST Products")
+func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, "Unable to convert id", http.StatusBadRequest)
+		return
+	}
+	p.l.Println("Handle PUT Product", id)
 
 	prod := &data.Product{}
 
-	err := prod.FromJSON(r.Body)
+	err = prod.FromJSON(r.Body)
 	if err != nil {
 		http.Error(rw, "Unable to unmarshal json", http.StatusBadRequest)
 	}
