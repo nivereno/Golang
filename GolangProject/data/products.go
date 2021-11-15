@@ -29,7 +29,7 @@ func (p *Products) ToJSON(w io.Writer) error {
 	return e.Encode(p)
 }
 
-func addProduct(p *Product) {
+func AddProduct(p *Product) {
 	p.ID = getNextID()
 	productList = append(productList, p)
 }
