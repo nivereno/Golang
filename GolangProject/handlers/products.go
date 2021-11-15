@@ -3,6 +3,8 @@ package handlers
 import (
 	"log"
 	"net/http"
+
+	"github.com/nivereno/Golang/tree/main/data"
 )
 
 type Products struct {
