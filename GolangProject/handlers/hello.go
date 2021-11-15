@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,12 +16,15 @@ func NewHello(l *log.Logger) *Hello {
 }
 
 func (h *Hello) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	h.l.Println("Hello world")
-	d, err := ioutil.ReadAll(r.Body)
+	h.l.Println("Handle Hello requests")
+
+	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		http.Error(rw, "Oops", http.StatusBadRequest)
+		h.l.Println("Error reading body", err)
+
+		http.Error(rw, "Unable to read request body", http.StatusBadRequest)
 		return
 	}
 
-	log.Printf("Data %s\n", d)
+	fmt.Fprintf(rw, "Hello %s", b)
 }
